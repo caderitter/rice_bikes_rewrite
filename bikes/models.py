@@ -39,7 +39,7 @@ class Item(models.Model):
 class Customer(models.Model):
     firstName = models.CharField(max_length=30)
     lastName = models.CharField(max_length=30)
-    email = models.CharField(max_length=30)
+    email = models.CharField(max_length=30, null=False)
 
 
 # Transaction model. Every transaction in the app is represented as this model.

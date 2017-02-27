@@ -1,10 +1,10 @@
-from django.shortcuts import render, redirect, render_to_response
-from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render
+from django.http import HttpResponseRedirect
 from django.views import generic
-import datetime
 
 from .forms import CustomerForm, TransactionForm
 from .models import Customer, Transaction
+
 
 class IndexView(generic.ListView):
     template_name = 'bikes/index.html'
@@ -19,6 +19,8 @@ class DetailView(generic.DetailView):
     template_name = 'bikes/detail.html'
 
 
+# Thanks to Collin Grady for help on this view.
+# https://collingrady.wordpress.com/2008/02/18/editing-multiple-objects-in-django-with-newforms/
 def add_transaction(request):
     if request.method == "POST":
         customer_form = CustomerForm(request.POST, instance=Customer())
@@ -28,7 +30,8 @@ def add_transaction(request):
             new_transaction = transaction_form.save()
             new_transaction.customer = new_customer
             new_transaction.save()
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/' + str(new_transaction.id) + '/')
+
     else:
         customer_form = CustomerForm(instance=Customer())
         transaction_form = TransactionForm(instance=Transaction())
