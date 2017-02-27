@@ -1,6 +1,5 @@
 from django.db import models
 
-
 # Bike model.
 
 
@@ -48,8 +47,8 @@ class Customer(models.Model):
 
 
 class Transaction(models.Model):
-    creation_date = models.DateField()
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, blank=True, null=True)
+    creation_date = models.DateTimeField(auto_now_add=True)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True)
     bike = models.ForeignKey(Bike, on_delete=models.CASCADE, blank=True, null=True)
     repairs = models.ManyToManyField(Repair, blank=True)
     items = models.ManyToManyField(Item, blank=True)

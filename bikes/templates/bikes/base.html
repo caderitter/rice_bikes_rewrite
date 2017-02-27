@@ -8,6 +8,16 @@
 <link rel="stylesheet" type="text/css" href="{% static 'bikes/style.css' %}" />
 
 <style>
+    html, body, h1, h2, h3 {
+        font-family: Helvetica;
+    }
+    h1 {
+        font-size: 48px;
+    }
+    .footer-text {
+        text-align: center;
+        font-size: 12px;
+    }
     .w3-theme-l5 {color:#000 !important; background-color:#f4f9fb !important}
     .w3-theme-l4 {color:#000 !important; background-color:#d9eaf0 !important}
     .w3-theme-l3 {color:#000 !important; background-color:#b3d4e1 !important}
@@ -35,56 +45,42 @@
     <head>
         <title>Rice Bikes</title>
     </head>
-        <div class="w3-container w3-theme-d2">
-            <h1>Rice Bikes</h1>
+
+        <div class="w3-container w3-theme-d2 w3-padding-large">
+            <a href="{% url 'index' %}">
+                <img src="{% static 'bikes/rb_app_logo_full.png' %}" style="width:100px; height:100px" />
+            </a>
         </div>
 
 
 
         <div class="w3-bar">
-          <button
-                  onclick="document.getElementById('id01').style.display='block'"
-                  class="w3-bar-item w3-button w3-xlarge w3-hover-theme"
-                  style="width:33.3%">New Transaction
-          </button>
+            <a href="{% url 'new_transaction' %}">
+              <div class="w3-bar-item w3-button w3-xlarge w3-hover-theme" style="width:33.3%">
+                  <img src="{% static 'bikes/rb_app_add.png' %}" style="width: 25px; height: 25px;">
+              </div>
+            </a>
 
-            <div id="id01" class="w3-modal">
-                <div class="w3-modal-content w3-animate-top w3-card-8">
-
-                  <header class="w3-container">
-                    <span onclick="document.getElementById('id01').style.display='none'"
-                    class="w3-closebtn">&times;</span>
-                    <h2>New Transaction</h2>
-                  </header>
-
-                  <form class="w3-container w3-theme">
-                      <p>
-                      <input class="w3-input" type="text">
-                      <label>First Name</label></p>
-                      <p>
-                      <input class="w3-input" type="text">
-                      <label>Last Name</label></p>
-                      <p>
-                      <input class="w3-input" type="text">
-                      <label>Email</label></p>
-                      <p>
-                      <input type="submit" value="Submit"></p>
-                  </form>
-                </div>
-            </div>
-
-          <button class="w3-bar-item w3-button w3-xlarge w3-hover-theme" style="width:33.3%">History</button>
-          <button class="w3-bar-item w3-button w3-xlarge w3-hover-theme" style="width:33.3%">Button</button>
+          <div class="w3-bar-item w3-button w3-xlarge w3-hover-theme"
+               style="width:33.3%">
+              <img src="{% static 'bikes/rb_app_history.png' %}" style="width: 30px; height: 30px;">
+          </div>
+          <button class="w3-bar-item w3-button w3-xlarge w3-hover-theme" style="width:33.3%">?</button>
 
         </div>
 
-
     <body>
-
             {% block content %}{% endblock content %}
-
     </body>
 
+    <footer>
+        <div class="w3-container w3-light-gray">
+            <p class="footer-text">by Cade Ritter</p>
+            <a href="https://github.com/caderitter/rice_bikes_rewrite">
+                <p class="footer-text">Github source</p>
+            </a>
+        </div>
+    </footer>
 
 </html>
 

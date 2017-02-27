@@ -1,0 +1,15 @@
+{% extends "bikes/base.html" %}
+
+{% block content %}
+
+<div class="w3-container w3-padding-large">
+    <h3>New transaction</h3>
+    <form method="POST" class="post-form">
+        {% csrf_token %}
+        {{ customer_form.as_p }}
+        {{ transaction_form }}
+        <button type="submit" class="w3-button w3-xlarge w3-hover-theme">Submit!</button>
+    </form>
+</div>
+
+{% endblock content %}

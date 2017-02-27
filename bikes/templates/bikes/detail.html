@@ -1,10 +1,10 @@
 {% extends "bikes/base.html" %}
 
 {% block content %}
-<body>
+
     <div class="w3-container">
         {% if transaction.customer %}
-            <h3>{{ transaction.id }} - {{ transaction.customer.firstName }} {{ transaction.customer.lastName }}</h3>
+            <h3>{{ transaction.id }} - {{ transaction.customer.firstName }} {{ transaction.customer.lastName }} - {{ transaction.creation_date }}</h3>
         {% else %}
             <h3>{{ transaction.id }}</h3>
         {% endif %}
@@ -22,5 +22,5 @@
         </ul>
         <button class="w3-button">Delete</button>
     </div>
-</body>
+
 {% endblock content %}
