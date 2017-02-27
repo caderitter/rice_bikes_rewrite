@@ -2,22 +2,25 @@
 
 {% block content %}
 <body>
-    {% if transaction.customer %}
-        <h3>{{ transaction.id }} - {{ transaction.customer.firstName }} {{ transaction.customer.lastName }}</h3>
-    {% else %}
-        <h3>{{ transaction.id }}</h3>
-    {% endif %}
+    <div class="w3-container">
+        {% if transaction.customer %}
+            <h3>{{ transaction.id }} - {{ transaction.customer.firstName }} {{ transaction.customer.lastName }}</h3>
+        {% else %}
+            <h3>{{ transaction.id }}</h3>
+        {% endif %}
 
-    <ul class="w3-ul w3-border">
-        {% for repair in transaction.repairs.all %}
-            <li>{{ repair.name }}</li>
-        {% endfor %}
-    </ul>
+        <ul class="w3-ul">
+            {% for repair in transaction.repairs.all %}
+                <li>{{ repair.name }}</li>
+            {% endfor %}
+        </ul>
 
-    <ul class="w3-ul w3-border">
-        {% for item in transaction.items.all %}
-            <li>{{ item.name }}</li>
-        {% endfor %}
-    </ul>
+        <ul class="w3-ul">
+            {% for item in transaction.items.all %}
+                <li>{{ item.name }}</li>
+            {% endfor %}
+        </ul>
+        <button class="w3-button">Delete</button>
+    </div>
 </body>
 {% endblock content %}

@@ -55,7 +55,6 @@ class Transaction(models.Model):
     items = models.ManyToManyField(Item, blank=True)
 
 
-
 # Refurb model.
 
 

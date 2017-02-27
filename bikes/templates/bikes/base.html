@@ -5,18 +5,88 @@
 <html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
+<link rel="stylesheet" type="text/css" href="{% static 'bikes/style.css' %}" />
 
-<head>
-    <title>Rice Bikes</title>
-    <div class="w3-container w3-blue">
-        <h1>Rice Bikes</h1>
-    </div>
-</head>
+<style>
+    .w3-theme-l5 {color:#000 !important; background-color:#f4f9fb !important}
+    .w3-theme-l4 {color:#000 !important; background-color:#d9eaf0 !important}
+    .w3-theme-l3 {color:#000 !important; background-color:#b3d4e1 !important}
+    .w3-theme-l2 {color:#000 !important; background-color:#8cbfd2 !important}
+    .w3-theme-l1 {color:#fff !important; background-color:#66a9c4 !important}
+    .w3-theme-d1 {color:#fff !important; background-color:#3e839f !important}
+    .w3-theme-d2 {color:#fff !important; background-color:#37758d !important}
+    .w3-theme-d3 {color:#fff !important; background-color:#30667b !important}
+    .w3-theme-d4 {color:#fff !important; background-color:#29576a !important}
+    .w3-theme-d5 {color:#fff !important; background-color:#224958 !important}
 
-<body>
-    <div class="w3-container">
-        {% block content %}{% endblock content %}
-    </div>
-</body>
+    .w3-theme-light {color:#000 !important; background-color:#f4f9fb !important}
+    .w3-theme-dark {color:#fff !important; background-color:#224958 !important}
+    .w3-theme-action {color:#fff !important; background-color:#224958 !important}
+
+    .w3-theme {color:#fff !important; background-color:#4492b0 !important}
+    .w3-text-theme {color:#4492b0 !important}
+    .w3-border-theme {border-color:#4492b0 !important}
+
+    .w3-hover-theme:hover {color:#fff !important; background-color:#4492b0 !important}
+    .w3-hover-text-theme {color:#4492b0 !important}
+    .w3-hover-border-theme:hover {border-color:#4492b0 !important}
+</style>
+
+    <head>
+        <title>Rice Bikes</title>
+    </head>
+        <div class="w3-container w3-theme-d2">
+            <h1>Rice Bikes</h1>
+        </div>
+
+
+
+        <div class="w3-bar">
+          <button
+                  onclick="document.getElementById('id01').style.display='block'"
+                  class="w3-bar-item w3-button w3-xlarge w3-hover-theme"
+                  style="width:33.3%">New Transaction
+          </button>
+
+            <div id="id01" class="w3-modal">
+                <div class="w3-modal-content w3-animate-top w3-card-8">
+
+                  <header class="w3-container">
+                    <span onclick="document.getElementById('id01').style.display='none'"
+                    class="w3-closebtn">&times;</span>
+                    <h2>New Transaction</h2>
+                  </header>
+
+                  <form class="w3-container w3-theme">
+                      <p>
+                      <input class="w3-input" type="text">
+                      <label>First Name</label></p>
+                      <p>
+                      <input class="w3-input" type="text">
+                      <label>Last Name</label></p>
+                      <p>
+                      <input class="w3-input" type="text">
+                      <label>Email</label></p>
+                      <p>
+                      <input type="submit" value="Submit"></p>
+                  </form>
+                </div>
+            </div>
+
+          <button class="w3-bar-item w3-button w3-xlarge w3-hover-theme" style="width:33.3%">History</button>
+          <button class="w3-bar-item w3-button w3-xlarge w3-hover-theme" style="width:33.3%">Button</button>
+
+        </div>
+
+
+    <body>
+
+            {% block content %}{% endblock content %}
+
+    </body>
+
 
 </html>
+
+
+
