@@ -2,25 +2,49 @@
 
 {% block content %}
 
-    <div class="w3-container">
+    <div class="w3-container w3-theme-l3">
+
+        <!-- This if statement needs to be removed eventually; it's only here to suppress a bug when I was making the DB. -->
         {% if transaction.customer %}
             <h3>{{ transaction.id }} - {{ transaction.customer.firstName }} {{ transaction.customer.lastName }} - {{ transaction.creation_date }}</h3>
         {% else %}
             <h3>{{ transaction.id }}</h3>
         {% endif %}
-
-        <ul class="w3-ul">
-            {% for repair in transaction.repairs.all %}
-                <li>{{ repair.name }}</li>
-            {% endfor %}
-        </ul>
-
-        <ul class="w3-ul">
-            {% for item in transaction.items.all %}
-                <li>{{ item.name }}</li>
-            {% endfor %}
-        </ul>
-        <button class="w3-button">Delete</button>
     </div>
+
+    {% if not transaction.bike %}
+    <div class="w3-bar">
+        <button class="w3-bar-item w3-button w3-xlarge w3-hover-theme" style="width: 100%">Add bike</button>
+    </div>
+    {% endif %}
+
+    <div class="w3-cell-row">
+        <div class="w3-container w3-theme-l4 w3-padding-large w3-cell">
+            <ul class="w3-ul">
+                {% for repair in transaction.repairs.all %}
+                    <li>{{ repair.name }}
+                        <span onclick="">&times;</span>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <ul class="w3-ul">
+                {% for item in transaction.items.all %}
+                    <li>{{ item.name }}
+                        <span onclick="">&times;</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="w3-bar">
+        <a href="{% url 'delete_transaction' pk=transaction.pk %}">
+            <button class="w3-bar-item w3-button w3-xlarge w3-hover-theme" style="width: 100%">Delete transaction</button>
+        </a>
+    </div>
+
+
 
 {% endblock content %}

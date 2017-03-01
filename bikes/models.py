@@ -44,12 +44,13 @@ class Customer(models.Model):
 
 # Transaction model. Every transaction in the app is represented as this model.
 # Note the ManyToManyField, which allows for multiple repairs and items to be added to a transaction.
+# Null = True for customer field in order to avoid a bug when first creating transactions.
 
 
 class Transaction(models.Model):
     creation_date = models.DateTimeField(auto_now_add=True)
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True)
-    bike = models.ForeignKey(Bike, on_delete=models.CASCADE, blank=True, null=True)
+    customer = models.ForeignKey(Customer, null=True)
+    bike = models.ForeignKey(Bike, blank=True, null=True)
     repairs = models.ManyToManyField(Repair, blank=True)
     items = models.ManyToManyField(Item, blank=True)
 

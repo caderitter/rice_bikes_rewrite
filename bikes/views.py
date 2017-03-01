@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.views import generic
+from django.core.urlresolvers import reverse_lazy
 
 from .forms import CustomerForm, TransactionForm
 from .models import Customer, Transaction
@@ -19,6 +20,11 @@ class DetailView(generic.DetailView):
     template_name = 'bikes/detail.html'
 
 
+class TransactionDelete(generic.DeleteView):
+    model = Transaction
+    success_url = reverse_lazy('index')
+
+
 # Thanks to Collin Grady for help on this view.
 # https://collingrady.wordpress.com/2008/02/18/editing-multiple-objects-in-django-with-newforms/
 def add_transaction(request):
@@ -35,7 +41,8 @@ def add_transaction(request):
     else:
         customer_form = CustomerForm(instance=Customer())
         transaction_form = TransactionForm(instance=Transaction())
-    return render(request, 'bikes/new_transaction.html', {'customer_form': customer_form, 'transaction_form': transaction_form})
+    return render(request, 'bikes/new_transaction.html',
+                  {'customer_form': customer_form, 'transaction_form': transaction_form})
 
 
 

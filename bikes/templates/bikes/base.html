@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
 <link rel="stylesheet" type="text/css" href="{% static 'bikes/style.css' %}" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <style>
     html, body, h1, h2, h3 {
@@ -46,28 +47,24 @@
         <title>Rice Bikes</title>
     </head>
 
-        <div class="w3-container w3-theme-d2 w3-padding-large">
-            <a href="{% url 'index' %}">
-                <img src="{% static 'bikes/rb_app_logo_full.png' %}" style="width:100px; height:100px" />
-            </a>
-        </div>
+    <div class="w3-container w3-theme-d2 w3-padding-large">
+        <a href="{% url 'index' %}">
+            <img src="{% static 'bikes/rb_app_logo_full.png' %}" style="width:100px; height:100px" />
+        </a>
+    </div>
 
-
-
-        <div class="w3-bar">
-            <a href="{% url 'new_transaction' %}">
-              <div class="w3-bar-item w3-button w3-xlarge w3-hover-theme" style="width:33.3%">
-                  <img src="{% static 'bikes/rb_app_add.png' %}" style="width: 25px; height: 25px;">
-              </div>
-            </a>
-
-          <div class="w3-bar-item w3-button w3-xlarge w3-hover-theme"
-               style="width:33.3%">
-              <img src="{% static 'bikes/rb_app_history.png' %}" style="width: 30px; height: 30px;">
+    <div class="w3-bar">
+        <a href="{% url 'new_transaction' %}">
+          <div class="w3-bar-item w3-button w3-xlarge w3-hover-theme" style="width:33.3%">
+              <img src="{% static 'bikes/rb_app_add.png' %}" style="width: 25px; height: 25px;">
           </div>
-          <button class="w3-bar-item w3-button w3-xlarge w3-hover-theme" style="width:33.3%">?</button>
-
-        </div>
+        </a>
+      <div class="w3-bar-item w3-button w3-xlarge w3-hover-theme"
+           style="width:33.3%">
+          <img src="{% static 'bikes/rb_app_history.png' %}" style="width: 30px; height: 30px;">
+      </div>
+      <input type="text" class="w3-bar-item w3-input w3-xlarge" placeholder="Search...">
+    </div>
 
     <body>
             {% block content %}{% endblock content %}
