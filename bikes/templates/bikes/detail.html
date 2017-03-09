@@ -3,7 +3,6 @@
 {% block content %}
 
     <div class="w3-container w3-theme-l3">
-
         <!-- This if statement needs to be removed eventually; it's only here to suppress a bug when I was making the DB. -->
         {% if transaction.customer %}
             <h3>{{ transaction.id }} - {{ transaction.customer.firstName }} {{ transaction.customer.lastName }} - {{ transaction.creation_date }}</h3>
@@ -13,16 +12,24 @@
     </div>
 
     {% if not transaction.bike %}
-    <div class="w3-bar">
-        <button class="w3-bar-item w3-button w3-xlarge w3-hover-theme" style="width: 100%">Add bike</button>
-    </div>
+        <a href="{% url 'add_bike' pk=transaction.pk %}" class="w3-block w3-button w3-xlarge w3-hover-theme">
+            Add bike
+        </a>
+    {% else %}
+        <div class="w3-container w3-theme-l2">
+            <h4>{{ transaction.bike.make }} {{ transaction.bike.model }} - {{ transaction.bike.description }}</h4>
+        </div>
     {% endif %}
 
     <div class="w3-cell-row">
         <div class="w3-container w3-theme-l4 w3-padding-large w3-cell">
+            <!-- item and repair adding goes here -->
+        </div>
+
+        <div class="w3-container w3-theme-l3  w3-cell" style="width: 25%; height: 500px; position: relative">
             <ul class="w3-ul">
                 {% for repair in transaction.repairs.all %}
-                    <li>{{ repair.name }}
+                    <li>${{ repair.cost }} {{ repair.name }}
                         <span onclick="">&times;</span>
                     </li>
                 {% endfor %}
@@ -30,20 +37,22 @@
 
             <ul class="w3-ul">
                 {% for item in transaction.items.all %}
-                    <li>{{ item.name }}
+                    <li>${{ item.cost }} {{ item.name }}
                         <span onclick="">&times;</span>
                     </li>
                 {% endfor %}
             </ul>
+            <button class="w3-block w3-button w3-xlarge w3-theme" style="position:absolute; bottom:0; left:0">
+                Checkout
+            </button>
         </div>
     </div>
 
 
-    <div class="w3-bar">
-        <a href="{% url 'delete_transaction' pk=transaction.pk %}">
-            <button class="w3-bar-item w3-button w3-xlarge w3-hover-theme" style="width: 100%">Delete transaction</button>
-        </a>
-    </div>
+    <a href="{% url 'delete_transaction' pk=transaction.pk %}" class="w3-block w3-button w3-xlarge w3-hover-theme">
+        Delete transaction
+    </a>
+
 
 
 

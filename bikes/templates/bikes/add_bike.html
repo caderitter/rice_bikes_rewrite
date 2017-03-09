@@ -2,19 +2,16 @@
 
 {% block content %}
 
-
     <div class="w3-container w3-theme-l3">
-        <h3>New transaction</h3>
+        <h3>Add bike</h3>
     </div>
 
     <div class="w3-container w3-theme-l4 w3-padding-large">
         <form id="myform" method="POST" class="post-form">
             {% csrf_token %}
-            {{ customer_form.as_p }}
-            {{ transaction_form }}
+            {{ bike_form.as_p }}
         </form>
     </div>
-    <button form="myform" type="submit" class="w3-button w3-block w3-xlarge w3-hover-theme" style="width:100%">Submit!</button>
-
+    <button form="myform" type="submit" class="w3-button w3-xlarge w3-hover-theme">Submit!</button>
 
 {% endblock content %}

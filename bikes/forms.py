@@ -1,6 +1,6 @@
 from django import forms
-import datetime
-from .models import Transaction, Customer
+
+from .models import Transaction, Customer, Bike
 
 
 class CustomerForm(forms.ModelForm):
@@ -18,5 +18,16 @@ class TransactionForm(forms.ModelForm):
     class Meta:
         model = Transaction
         exclude = ('customer', 'bike', 'repairs', 'items',)
+
+
+class BikeForm(forms.ModelForm):
+    make = forms.CharField(label="Make", required=True)
+    model = forms.CharField(label="Model", required=True)
+    description = forms.CharField(label="Bike description", required=True)
+
+    class Meta:
+        model = Bike
+        exclude = ('transaction',)
+
 
 

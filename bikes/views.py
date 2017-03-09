@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.views import generic
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse_lazy, reverse
 
-from .forms import CustomerForm, TransactionForm
-from .models import Customer, Transaction
+from .forms import CustomerForm, TransactionForm, BikeForm
+from .models import Customer, Transaction, Bike
 
 
 class IndexView(generic.ListView):
@@ -43,6 +43,23 @@ def add_transaction(request):
         transaction_form = TransactionForm(instance=Transaction())
     return render(request, 'bikes/new_transaction.html',
                   {'customer_form': customer_form, 'transaction_form': transaction_form})
+
+
+def add_bike(request, pk):
+    transaction = Transaction.objects.get(pk=pk)
+    transaction.save()
+    if request.method == "POST":
+        bike_form = BikeForm(request.POST, instance=Bike())
+        if bike_form.is_valid():
+            new_bike = bike_form.save()
+            transaction.bike = new_bike
+            transaction.save()
+            return HttpResponseRedirect('/' + str(transaction.id) + '/')
+
+    else:
+        bike_form = BikeForm(instance=Bike())
+        return render(request, 'bikes/add_bike.html', {'bike_form': bike_form})
+
 
 
 

@@ -3,19 +3,19 @@
 {% block content %}
 
     {% if transaction_list %}
-        <table class="w3-table w3-hoverable w3-striped">
+        <table class="w3-table w3-hoverable w3-bordered">
             <thead>
-              <tr>
+              <tr class="w3-theme-l3">
                 <th>ID</th>
-                <th>First Name</th>
-                <th>Last Name</th>
+                <th>Name</th>
+                <th>Description</th>
               </tr>
             </thead>
             {% for transaction in transaction_list %}
-                <tr onclick=rowLink('{% url 'detail' transaction.id %}')>
+                <tr onclick=rowLink('{% url 'detail' transaction.id %}') class="w3-hover-light-gray">
                   <td>{{ transaction.id }}</td>
-                  <td>{{ transaction.customer.firstName }}</td>
-                  <td>{{ transaction.customer.lastName }}</td>
+                  <td>{{ transaction.customer.firstName }} {{ transaction.customer.lastName }}</td>
+                  <td>{{ transaction.bike.make }} {{ transaction.bike.model }}</td>
                 </tr>
             {% endfor %}
         </table>
