@@ -1,6 +1,7 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
 
-from .models import Transaction, Customer, Bike
+from .models import Transaction, Customer, Bike, MerchTransaction
 
 
 class CustomerForm(forms.ModelForm):
@@ -17,7 +18,14 @@ class TransactionForm(forms.ModelForm):
 
     class Meta:
         model = Transaction
-        exclude = ('customer', 'bike', 'repairs', 'items',)
+        exclude = ('customer', 'bike', 'repairs', 'items', 'description', 'is_complete')
+
+
+class MerchTransactionForm(forms.ModelForm):
+
+    class Meta:
+        model = MerchTransaction
+        exclude = ('customer', 'items', 'description')
 
 
 class BikeForm(forms.ModelForm):
@@ -27,6 +35,7 @@ class BikeForm(forms.ModelForm):
 
     class Meta:
         model = Bike
+        fields = ('make', 'model', 'description')
         exclude = ('transaction',)
 
 

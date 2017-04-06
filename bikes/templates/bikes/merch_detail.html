@@ -1,0 +1,41 @@
+{% extends "bikes/base.html" %}
+
+{% block content %}
+
+    <div class="w3-container w3-theme-l3">
+        <!-- This if statement needs to be removed eventually; it's only here to suppress a bug when I was making the DB.
+         Transactions will always have customers. -->
+        {% if transaction.customer %}
+            <h3>{{ transaction.id }} - {{ transaction.customer.firstName }} {{ transaction.customer.lastName }} - {{ transaction.creation_date }}</h3>
+        {% else %}
+            <h3>{{ transaction.id }}</h3>
+        {% endif %}
+    </div>
+
+    <div class="w3-cell-row">
+        <div class="w3-container w3-theme-l4 w3-padding-large w3-cell">
+            <input type="text" class="w3-bar-item w3-input w3-xlarge" placeholder="Add item">
+        </div>
+
+        <div class="w3-container w3-theme-l3  w3-cell" style="width: 25%; height: 500px; position: relative">
+            <ul class="w3-ul">
+                {% for item in transaction.items.all %}
+                    <li>${{ item.cost }} {{ item.name }}
+                        <span onclick="">&times;</span>
+                    </li>
+                {% endfor %}
+            </ul>
+            <button class="w3-block w3-button w3-large w3-theme-l2" style="position:absolute; bottom:50px; left:0">&#x2713;</button>
+            <button class="w3-block w3-button w3-xlarge w3-theme" style="position:absolute; bottom:0; left:0">Charge</button>
+        </div>
+    </div>
+
+
+    <a href="{% url 'delete_merch_transaction' pk=transaction.pk %}" class="w3-block w3-button w3-xlarge w3-hover-theme">
+        Delete transaction
+    </a>
+
+
+
+
+{% endblock content %}

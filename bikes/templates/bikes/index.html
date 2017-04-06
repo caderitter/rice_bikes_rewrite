@@ -12,11 +12,13 @@
               </tr>
             </thead>
             {% for transaction in transaction_list %}
+                {% if not transaction.is_complete %}
                 <tr onclick=rowLink('{% url 'detail' transaction.id %}') class="w3-hover-light-gray">
                   <td>{{ transaction.id }}</td>
                   <td>{{ transaction.customer.firstName }} {{ transaction.customer.lastName }}</td>
                   <td>{{ transaction.bike.make }} {{ transaction.bike.model }}</td>
                 </tr>
+                {% endif %}
             {% endfor %}
         </table>
     {% endif %}

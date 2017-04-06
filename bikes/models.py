@@ -11,6 +11,9 @@ class Bike(models.Model):
     def __str__(self):
         return self.make + " " + self.model
 
+    def get_absolute_url(self):
+        return "/%i" % self.id
+
 
 # Item model.
 
@@ -52,9 +55,7 @@ class Customer(models.Model):
         return self.firstName + " " + self.lastName
 
 
-# Transaction model. Every transaction in the app is represented as this model.
-# Note the ManyToManyField, which allows for multiple repairs and items to be added to a transaction.
-# Null = True for customer field in order to avoid a bug when first creating transactions.
+# Transaction model. For customers who need repairs.
 
 
 class Transaction(models.Model):
@@ -63,6 +64,21 @@ class Transaction(models.Model):
     bike = models.ForeignKey(Bike, blank=True, null=True)
     repairs = models.ManyToManyField(Repair, blank=True)
     items = models.ManyToManyField(Item, blank=True)
+    description = models.CharField(max_length=300)
+    is_complete = models.BooleanField(default=False)
+
+    def __str__(self):
+        return str(self.id)
+
+
+# Merchandise transaction model. For customers who only buy things vs. customers who need their bike repaired.
+
+
+class MerchTransaction(models.Model):
+    creation_date = models.DateTimeField(auto_now_add=True)
+    customer = models.ForeignKey(Customer, null=True)
+    items = models.ManyToManyField(Item, blank=True)
+    description = models.CharField(max_length=300)
 
     def __str__(self):
         return str(self.id)

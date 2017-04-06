@@ -1,0 +1,13 @@
+{% extends "bikes/base.html" %}
+
+{% block content %}
+
+    <div class="w3-container w3-theme-l4 w3-padding-large">
+        <form id="myform" action="" method="post">
+            {% csrf_token %}
+            <h4>Are you sure you want to delete this transaction?</h4>
+        </form>
+    </div>
+    <button form="myform" type="submit" class="w3-button w3-block w3-xlarge w3-hover-red">Confirm</button>
+
+{% endblock content %}
