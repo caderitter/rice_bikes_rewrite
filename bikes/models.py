@@ -1,8 +1,7 @@
 from django.db import models
 
+
 # Bike model.
-
-
 class Bike(models.Model):
     make = models.CharField(max_length=30)
     model = models.CharField(max_length=30)
@@ -16,8 +15,6 @@ class Bike(models.Model):
 
 
 # Item model.
-
-
 class Item(models.Model):
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=300)
@@ -28,8 +25,6 @@ class Item(models.Model):
 
 
 # Repair model.
-
-
 class Repair(models.Model):
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=300)
@@ -38,14 +33,8 @@ class Repair(models.Model):
     def __str__(self):
         return self.name
 
-    # need a "choices" dealio or just try to figure out distinction between list of repairs and
-    # where actual repairs added to bikes will be stored. new instance for every new repair?
-    # or just an identifier?
-
 
 # Customer model.
-
-
 class Customer(models.Model):
     firstName = models.CharField(max_length=30)
     lastName = models.CharField(max_length=30)
@@ -56,8 +45,6 @@ class Customer(models.Model):
 
 
 # Transaction model. For customers who need repairs.
-
-
 class Transaction(models.Model):
     creation_date = models.DateTimeField(auto_now_add=True)
     customer = models.ForeignKey(Customer, null=True)
@@ -72,8 +59,6 @@ class Transaction(models.Model):
 
 
 # Merchandise transaction model. For customers who only buy things vs. customers who need their bike repaired.
-
-
 class MerchTransaction(models.Model):
     creation_date = models.DateTimeField(auto_now_add=True)
     customer = models.ForeignKey(Customer, null=True)
@@ -85,8 +70,6 @@ class MerchTransaction(models.Model):
 
 
 # Refurb model.
-
-
 class Refurb(models.Model):
     creation_date = models.DateField()
     bike = models.ForeignKey(Bike, on_delete=models.CASCADE)
@@ -95,8 +78,6 @@ class Refurb(models.Model):
 
 
 # Rental model.
-
-
 class Rental(models.Model):
     rental_number = models.IntegerField(default=0)
     bike = models.ForeignKey(Bike, on_delete=models.CASCADE)

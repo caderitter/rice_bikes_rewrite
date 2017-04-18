@@ -6,7 +6,7 @@
         <!-- This if statement needs to be removed eventually; it's only here to suppress a bug when I was making the DB.
          Transactions will always have customers. -->
         {% if transaction.customer %}
-            <h3>{{ transaction.id }} - {{ transaction.customer.firstName }} {{ transaction.customer.lastName }} - {{ transaction.creation_date }}</h3>
+            <h3>{{ transaction.id }}: <b>{{ transaction.customer.firstName }} {{ transaction.customer.lastName }}</b> - {{ transaction.creation_date }}</h3>
         {% else %}
             <h3>{{ transaction.id }}</h3>
         {% endif %}
@@ -20,9 +20,7 @@
         <div class="w3-container w3-theme-l3  w3-cell" style="width: 25%; height: 500px; position: relative">
             <ul class="w3-ul">
                 {% for item in transaction.items.all %}
-                    <li>${{ item.cost }} {{ item.name }}
-                        <span onclick="">&times;</span>
-                    </li>
+                    <li>${{ item.cost }} {{ item.name }}</li>
                 {% endfor %}
             </ul>
             <button class="w3-block w3-button w3-large w3-theme-l2" style="position:absolute; bottom:50px; left:0">&#x2713;</button>
@@ -31,9 +29,9 @@
     </div>
 
 
-    <a href="{% url 'delete_merch_transaction' pk=transaction.pk %}" class="w3-block w3-button w3-xlarge w3-hover-theme">
-        Delete transaction
-    </a>
+{#    <a href="{% url 'delete_merch_transaction' pk=transaction.pk %}" class="w3-block w3-button w3-xlarge w3-hover-theme">#}
+{#        Delete transaction#}
+{#    </a>#}
 
 
 

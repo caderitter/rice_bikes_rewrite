@@ -10,15 +10,40 @@
 
 <style>
     html, body, h1, h2, h3 {
-        font-family: Helvetica;
+        font-family: Avenir;
     }
     h1 {
         font-size: 48px;
     }
+
+    html, body {
+		margin:0;
+		padding:0;
+		height:100%;
+	}
+
     .footer-text {
         text-align: center;
         font-size: 12px;
+
     }
+
+    #footer {
+        position:absolute;
+        bottom:0;
+        width:100%;
+        height:60px;
+    }
+
+    #body {
+        padding-bottom:60px;
+    }
+
+    #container {
+        min-height:100%;
+        position:relative;
+    }
+
     /* Change the background color of the dropdown button when the dropdown content is shown */
 
 
@@ -46,61 +71,64 @@
     .w3-hover-border-theme:hover {border-color:#4492b0 !important}
 </style>
 
-    <head>
-        <title>Rice Bikes</title>
-    </head>
+    <div id="container">
+        <head>
+            <title>Rice Bikes</title>
+        </head>
 
-    <div class="w3-container w3-theme-d2 w3-padding-large">
-        <a href="{% url 'index' %}">
-            <img src="{% static 'bikes/rb_app_logo_full.png' %}" style="width:100px; height:100px" />
-        </a>
-    </div>
+        <div id="body">
+            <div class="w3-container w3-theme-d2 w3-padding-large">
+                <a href="{% url 'index' %}">
+                    <img src="{% static 'bikes/rb_app_logo_full.png' %}" style="width:100px; height:100px" />
+                </a>
+            </div>
 
-    <div class="w3-bar w3-white">
+            <div class="w3-bar w3-white">
 
-        <div class="w3-dropdown-click w3-white" style="width:33.3%">
-            <button onclick="myFunction()" class="w3-button w3-xlarge" style="width:100%">
-                <img src="{% static 'bikes/rb_app_add.png' %}" style="width: 25px; height: 25px;">
-            </button>
-            <div id="dropdown" class="w3-dropdown-content w3-large w3-border" style="width:426px; text-align: center">
-                <a href="{% url 'new_repair_transaction' %}">repair transaction</a>
-                <a href="{% url 'new_merch_transaction' %}">merch transaction</a>
-                <a href="#">refurb</a>
-                <a href="#">rental</a>
+                <div class="w3-dropdown-click w3-white" style="width:33.3%">
+                    <button onclick="dropDownReveal()" class="w3-button w3-xlarge" style="width:100%">
+                        <img src="{% static 'bikes/rb_app_add.png' %}" style="width: 25px; height: 25px;">
+                    </button>
+                    <div id="dropdown" class="w3-dropdown-content w3-large w3-border" style="width:426px; text-align: center">
+                        <a href="{% url 'new_repair_transaction' %}">repair transaction</a>
+                        <a href="{% url 'new_merch_transaction' %}">merch transaction</a>
+                        <a href="#">refurb</a>
+                        <a href="#">rental</a>
+                    </div>
+                </div>
+
+                <div class="w3-bar-item w3-button w3-xlarge" style="width:33.3%">
+                    <img src="{% static 'bikes/rb_app_history.png' %}" style="width: 30px; height: 30px;">
+                </div>
+
+                <input type="text" class="w3-bar-item w3-input w3-xlarge" placeholder="Search...">
+            </div>
+
+            <body>
+                    {% block content %}{% endblock content %}
+            </body>
+        </div>
+
+        <div id="footer">
+            <div class="w3-container w3-theme-d2">
+                <p class="footer-text">by Cade Ritter</p>
+                <p class="footer-text">
+                    <a href="https://github.com/caderitter/rice_bikes_rewrite">Github source</a>
+                </p>
             </div>
         </div>
 
-        <div class="w3-bar-item w3-button w3-xlarge" style="width:33.3%">
-            <img src="{% static 'bikes/rb_app_history.png' %}" style="width: 30px; height: 30px;">
-        </div>
-
-        <input type="text" class="w3-bar-item w3-input w3-xlarge" placeholder="Search...">
     </div>
-
-    <body>
-            {% block content %}{% endblock content %}
-    </body>
-
-    <footer>
-        <div class="w3-container w3-light-gray">
-            <p class="footer-text">by Cade Ritter</p>
-            <p class="footer-text">
-                <a href="https://github.com/caderitter/rice_bikes_rewrite">Github source</a>
-            </p>
-        </div>
-    </footer>
-
-    <script>
-        function myFunction() {
-            var x = document.getElementById("dropdown");
-            if (x.className.indexOf("w3-show") == -1)
-                x.className += " w3-show";
-            else
-                x.className = x.className.replace(" w3-show", "");
-        }
-    </script>
-
 </html>
 
+<script>
+    function dropDownReveal() {
+        var x = document.getElementById("dropdown");
+        if (x.className.indexOf("w3-show") == -1)
+            x.className += " w3-show";
+        else
+            x.className = x.className.replace(" w3-show", "");
+    }
+</script>
 
 

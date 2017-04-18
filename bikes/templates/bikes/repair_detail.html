@@ -6,7 +6,7 @@
         <!-- This if statement needs to be removed eventually; it's only here to suppress a bug when I was making the DB.
          Transactions will always have customers. -->
         {% if transaction.customer %}
-            <h3>{{ transaction.id }} - {{ transaction.customer.firstName }} {{ transaction.customer.lastName }} - {{ transaction.creation_date }}</h3>
+            <h3>{{ transaction.id }}: <b>{{ transaction.customer.firstName }} {{ transaction.customer.lastName }}</b> - {{ transaction.creation_date }}</h3>
         {% else %}
             <h3>{{ transaction.id }}</h3>
         {% endif %}
@@ -18,7 +18,7 @@
         </a>
     {% else %}
         <div class="w3-container w3-theme-l3">
-            <h4>{{ transaction.bike.make }} {{ transaction.bike.model }} - {{ transaction.bike.description }}</h4>
+            <h4><b>{{ transaction.bike.make }} {{ transaction.bike.model }}</b> - {{ transaction.bike.description }}</h4>
         </div>
         <a href="{% url 'bike_edit' pk=transaction.pk %}" class="w3-block w3-button w3-xlarge w3-hover-theme">
             Edit bike
@@ -37,16 +37,15 @@
         <div class="w3-container w3-theme-l3  w3-cell" style="width: 25%; height: 500px; position: relative">
             <ul class="w3-ul">
                 {% for repair in transaction.repairs.all %}
-                    <li>${{ repair.cost }} {{ repair.name }}
-                        <span onclick="">&times;</span>
+                    <li>
+                        ${{ repair.cost }} {{ repair.name }}
+                        <span onclick="" class="w3-button w3-right w3-small">&times;</span>
                     </li>
                 {% endfor %}
-            </ul>
 
-            <ul class="w3-ul">
                 {% for item in transaction.items.all %}
                     <li>${{ item.cost }} {{ item.name }}
-                        <span onclick="">&times;</span>
+                        <span onclick="" class="w3-button w3-right w3-small">&times;</span>
                     </li>
                 {% endfor %}
             </ul>
