@@ -2,10 +2,11 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.views import generic
 from django.core.urlresolvers import reverse_lazy, reverse
+from django.views.generic.edit import UpdateView
 
 from dal import autocomplete
 
-from .forms import CustomerForm, TransactionForm, BikeForm, MerchTransactionForm
+from .forms import CustomerForm, TransactionForm, BikeForm, MerchTransactionForm, AddItemToTransactionForm
 from .models import Customer, Transaction, Bike, MerchTransaction, Item, Repair
 
 
@@ -117,18 +118,10 @@ def edit_bike(request, pk):
             this_bike = edit_bike_form.save()
             this_transaction.bike = this_bike
             this_transaction.save()
-            return HttpResponseRedirect('/%s/' % str(this_transaction.id))
+            return HttpResponseRedirect(reverse_lazy('detail', args=[this_transaction.id]))
     else:
         edit_bike_form = BikeForm(instance=Bike(this_bike))
     return render(request, 'bikes/bike_edit.html', {'edit_bike_form': edit_bike_form})
-
-
-# View for adding an item to a repair or merch transaction.
-def add_item_to_transaction(transaction_id, item):
-    t = Transaction.objects.get(id=transaction_id)
-    i = Item.objects.get(name=item)
-    t.entry_set.add(i)
-    t.save()
 
 
 # View for adding a repair to a repair transaction.
@@ -139,8 +132,29 @@ def add_repair_to_transaction(transaction_id, repair):
     t.save()
 
 
+def get_items():
+    return Item.objects.all()
+
+
+# These two views are required by Django-Autocomplete-Light in order to get a list of choices for the multiple select
+# field.
 class ItemAutocomplete(autocomplete.Select2QuerySetView):
 
     def get_queryset(self):
         items = Item.objects.all()
         return items
+
+
+class RepairAutocomplete(autocomplete.Select2QuerySetView):
+
+    def get_queryset(self):
+        repairs = Repair.objects.all()
+        return repairs
+
+
+class AddItemToTransaction(UpdateView):
+    model = Transaction
+    template_name = "bikes/add_items.html"
+    form_class = AddItemToTransactionForm
+
+

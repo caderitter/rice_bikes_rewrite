@@ -28,10 +28,14 @@
 
     <div class="w3-cell-row">
         <div class="w3-container w3-theme-l4 w3-padding-large w3-cell">
-            <input type="text" class="w3-bar-item w3-input w3-xlarge" placeholder="Add repair">
+             <a href="{% url 'add_items' pk=transaction.pk %}" class="w3-block w3-button w3-xlarge w3-hover-theme">
+                 Add items
+             </a>
         </div>
         <div class="w3-container w3-theme-l4 w3-padding-large w3-cell">
-            <input type="text" class="w3-bar-item w3-input w3-xlarge" placeholder="Add item">
+            <a href="" class="w3-block w3-button w3-xlarge w3-hover-theme">
+                 Add repairs
+             </a>
         </div>
 
         <div class="w3-container w3-theme-l3  w3-cell" style="width: 25%; height: 500px; position: relative">
@@ -58,7 +62,6 @@
     <a href="{% url 'delete_transaction' pk=transaction.pk %}" class="w3-block w3-button w3-xlarge w3-hover-theme">
         Delete transaction
     </a>
-
 
 
 

@@ -1,4 +1,17 @@
+"""
+This is the file that describes all the types of data in the app. Each class represents a table in the database, as well
+as an object (i.e. Bike, Item, Customer, etc).
+
+After making changes to this file that would change how data is represented in the database, the user must run
+
+    > ./manage.py makemigrations
+    > ./manage.py migrate
+
+before starting the server again.
+"""
+
 from django.db import models
+from django.core.urlresolvers import reverse
 
 
 # Bike model.
@@ -49,13 +62,28 @@ class Transaction(models.Model):
     creation_date = models.DateTimeField(auto_now_add=True)
     customer = models.ForeignKey(Customer, null=True)
     bike = models.ForeignKey(Bike, blank=True, null=True)
-    repairs = models.ManyToManyField(Repair, blank=True)
-    items = models.ManyToManyField(Item, blank=True)
+    repairs = models.ManyToManyField(Repair, blank=True, through='TransactionRepair')
+    items = models.ManyToManyField(Item, blank=True, through='TransactionItem')
     description = models.CharField(max_length=300)
     is_complete = models.BooleanField(default=False)
 
     def __str__(self):
         return str(self.id)
+
+    def get_absolute_url(self):
+        return reverse('detail', args=[self.id])
+
+
+# Intermediate model to define transaction-repair relationship.
+class TransactionRepair(models.Model):
+    transaction = models.ForeignKey(Transaction, on_delete=models.CASCADE)
+    repairs = models.ForeignKey(Repair, on_delete=models.CASCADE)
+
+
+# Intermediate model to define transaction-item relationship.
+class TransactionItem(models.Model):
+    transaction = models.ForeignKey(Transaction, on_delete=models.CASCADE)
+    items = models.ForeignKey(Item, on_delete=models.CASCADE)
 
 
 # Merchandise transaction model. For customers who only buy things vs. customers who need their bike repaired.

@@ -1,7 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
+from dal import autocomplete
 
-from .models import Transaction, Customer, Bike, MerchTransaction
+from .models import Transaction, Customer, Bike, MerchTransaction, Item
 
 
 class CustomerForm(forms.ModelForm):
@@ -36,7 +37,14 @@ class BikeForm(forms.ModelForm):
     class Meta:
         model = Bike
         fields = ('make', 'model', 'description')
-        exclude = ('transaction',)
 
 
+class AddItemToTransactionForm(forms.ModelForm):
+
+    class Meta:
+        model = Transaction
+        fields = ('items',)
+        widgets = {
+            'items': autocomplete.ModelSelect2Multiple(url='item-autocomplete')
+        }
 
