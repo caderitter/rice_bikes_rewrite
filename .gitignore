@@ -1,5 +1,7 @@
 *.pyc
-migrations/
+bikes/migrations/
 .idea/
 *.iml
 *.xml
+rice_bikes_rewrite/__pycache__/
+bikes/__pycache__/
