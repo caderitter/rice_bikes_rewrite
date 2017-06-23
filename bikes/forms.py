@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from dal import autocomplete
 
-from .models import Transaction, Customer, Bike, MerchTransaction, Item
+from .models import Transaction, Customer, Bike, MerchTransaction, Item, TransactionItem
 
 
 class CustomerForm(forms.ModelForm):
@@ -42,7 +42,7 @@ class BikeForm(forms.ModelForm):
 class AddItemToTransactionForm(forms.ModelForm):
 
     class Meta:
-        model = Transaction
+        model = TransactionItem
         fields = ('items',)
         widgets = {
             'items': autocomplete.ModelSelect2Multiple(url='item-autocomplete')

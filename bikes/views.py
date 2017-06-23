@@ -7,7 +7,7 @@ from django.views.generic.edit import UpdateView
 from dal import autocomplete
 
 from .forms import CustomerForm, TransactionForm, BikeForm, MerchTransactionForm, AddItemToTransactionForm
-from .models import Customer, Transaction, Bike, MerchTransaction, Item, Repair
+from .models import Customer, Transaction, Bike, MerchTransaction, Item, Repair, TransactionRepair, TransactionItem
 
 
 # Generic index view to list transactions on main page.
@@ -60,7 +60,7 @@ def add_transaction(request):
         customer_form = CustomerForm(request.POST, instance=Customer())
         transaction_form = TransactionForm(request.POST, instance=Transaction())
         if customer_form.is_valid() and transaction_form.is_valid():
-            new_customer = customer_form.save()
+            new_customer = add_customer(customer_form.save(commit=False))
             new_transaction = transaction_form.save()
             new_transaction.customer = new_customer
             new_transaction.save()
@@ -71,6 +71,16 @@ def add_transaction(request):
         transaction_form = TransactionForm(instance=Transaction())
     return render(request, 'bikes/new_repair_transaction.html',
                   {'customer_form': customer_form, 'transaction_form': transaction_form})
+
+
+def add_customer(c):
+    customer, created = Customer.objects.get_or_create(
+        firstName=c.firstName,
+        lastName=c.lastName,
+        email=c.email
+    )
+    customer.save()
+    return customer
 
 
 # View for adding a new merch transaction.
@@ -125,11 +135,24 @@ def edit_bike(request, pk):
 
 
 # View for adding a repair to a repair transaction.
-def add_repair_to_transaction(transaction_id, repair):
-    t = Transaction.objects.get(id=transaction_id)
-    r = Repair.objects.get(name=repair)
-    t.entry_set.add(r)
-    t.save()
+def add_repair_to_transaction(transaction_id, repair_id):
+    transaction = Transaction.objects.get(id=transaction_id)
+    repair = Repair.objects.get(id=repair_id)
+    tr, created = TransactionRepair.objects.get_or_create(
+        transaction=transaction
+    )
+    tr.repairs.add(repair)
+    tr.save()
+
+
+def add_item_to_transaction(transaction_id, item_id):
+    transaction = Transaction.objects.get(id=transaction_id)
+    item = Item.objects.get(id=item_id)
+    tr, created = TransactionItem.objects.get_or_create(
+        transaction=transaction
+    )
+    tr.items.add(item)
+    tr.save()
 
 
 def get_items():
@@ -153,7 +176,7 @@ class RepairAutocomplete(autocomplete.Select2QuerySetView):
 
 
 class AddItemToTransaction(UpdateView):
-    model = Transaction
+    model = TransactionItem
     template_name = "bikes/add_items.html"
     form_class = AddItemToTransactionForm
 
